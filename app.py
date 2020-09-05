@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 from typing import List
+import pydeck as pdk
 
 dataset = "ManualLog_12_19_47_14.csv"
 parameters = [1,2,3,4,5,6,7]
@@ -49,4 +50,34 @@ partial_ds[['lat','lon']+options]
 # partial_ds[['lat','lon']].iloc[0:5]
 
 st.subheader("Map")
-st.map(partial_ds[['lat','lon']])
+# st.map(partial_ds[['lat','lon']])
+
+st.pydeck_chart(pdk.Deck(
+     map_style='mapbox://styles/mapbox/streets-v11',
+     #map_style='mapbox://styles/mapbox/light-v9',
+     initial_view_state=pdk.ViewState(
+         latitude=25.91275783,
+         longitude=-80.13782367,
+         zoom=16,
+         pitch=50,
+     ),
+     layers=[
+         # pdk.Layer(
+         #    'HexagonLayer',
+         #    data=partial_ds[['lat','lon']],
+         #    get_position='[lon, lat]',
+         #    radius=10,
+         #    elevation_scale=4,
+         #    elevation_range=[0, 1000],
+         #    pickable=True,
+         #    extruded=True,
+         # ),
+         pdk.Layer(
+             'ScatterplotLayer',
+             data=partial_ds[['lat','lon']],
+             get_position='[lon, lat]',
+             get_color='[200, 30, 0, 160]',
+             get_radius=1,
+         ),
+     ],
+ ))
