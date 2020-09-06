@@ -35,6 +35,9 @@ def selectDataframe(dataset: str, selected_parameters: List[str]):
         print("Oops!  Some selected water parameters do not exist in this dataset. Try again...")
 
 partial_ds = selectDataframe(dataset, selected_parameters)  # calling function selectDataframe
+min_turb = partial_ds[["Turbid+ NTU"]].min()
+partial_ds[["Turbid+ NTU"]]=partial_ds[["Turbid+ NTU"]]-min_turb
+
 st.title('FIU Biscayne Bay Task Force')
 
 st.header("Data Collection - September 5th 2020")
@@ -47,6 +50,7 @@ options = st.multiselect(
 # st.write('You selected:', options[0])
 
 partial_ds[['lat','lon']+options]
+
 
 see_stats = st.checkbox('Click here for descriptive statistics')
 if see_stats:
