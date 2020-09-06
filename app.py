@@ -84,3 +84,15 @@ st.pydeck_chart(pdk.Deck(
          ),
      ],
  ))
+
+see_video = st.checkbox('Click here to watch a real video of the mission')
+if see_video:
+    st.subheader("Video of the Data Collection")
+    video_file = open('IMG_1860.mov', 'rb')
+    video_bytes = video_file.read()
+    st.video(video_bytes)
+
+st.text("Developed by Gregory Murad Reis\n"
+        "Mission designed by Adrian Perez\n"
+        "Miami, FL\n"
+        "2020")

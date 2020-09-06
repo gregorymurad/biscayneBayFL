@@ -2,7 +2,8 @@ import pandas as pd
 import plotly.express as px
 from typing import List
 
-dataset = "ManualLog_12_19_47_14.csv"
+dataset0820 = "ManualLog_11_05_09_92.csv"
+dataset0905 = "ManualLog_12_19_47_14.csv"
 parameters = [1,2,3,4,5,6,7]
 water_parameters = {1: "Total Water Column (m)",
                     2: "Temperature (c)",
@@ -30,7 +31,7 @@ def selectDataframe(dataset: str, selected_parameters: List[str]):
     except ValueError:
         print("Oops!  Some selected water parameters do not exist in this dataset. Try again...")
 
-partial_ds = selectDataframe(dataset, selected_parameters)  # calling function selectDataframe
+partial_ds = selectDataframe(dataset0820, selected_parameters)  # calling function selectDataframe
 
 fig = px.scatter_mapbox(partial_ds, lat="Latitude", lon="Longitude", hover_name="Time hh:mm:ss",
                         hover_data=["Total Water Column (m)", "Temperature (c)", "pH", "ODO mg/L", "Salinity (ppt)","Turbid+ NTU", "BGA-PC cells/mL"],
@@ -53,3 +54,4 @@ fig.update_layout(mapbox_style="open-street-map")
 #       ])
 fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 fig.show()
+
