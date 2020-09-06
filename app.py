@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 from typing import List
 import pydeck as pdk
+from PIL import Image
 
 dataset = "ManualLog_12_19_47_14.csv"
 parameters = [1,2,3,4,5,6,7]
@@ -85,12 +86,14 @@ st.pydeck_chart(pdk.Deck(
      ],
  ))
 
-see_video = st.checkbox('Click here to watch a real video of the mission')
-if see_video:
-    st.subheader("Video of the Data Collection")
-    video_file = open('IMG_1860.mov', 'rb')
-    video_bytes = video_file.read()
-    st.video(video_bytes)
+
+st.subheader("Photos of the Mission")
+image1 = Image.open('IMG_1885.jpg')
+image2 = Image.open('IMG_1886.jpg')
+image3 = Image.open('IMG_1887.jpg')
+st.image(image1,use_column_width=True)
+st.image(image2,use_column_width=True)
+st.image(image3, caption='YSI Ecomapper executing mission in Biscayne Bay, FL, Sep 2020',use_column_width=True)
 
 st.text("Developed by Gregory Murad Reis\n"
         "Mission designed by Adrian Perez\n"
