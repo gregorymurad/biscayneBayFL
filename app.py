@@ -47,7 +47,10 @@ options = st.multiselect(
 
 partial_ds[['lat','lon']+options]
 
-# partial_ds[['lat','lon']].iloc[0:5]
+see_stats = st.checkbox('Click here for descriptive statistics')
+if see_stats:
+    st.subheader("Descriptive Statistics Table")
+    st.dataframe(partial_ds[["Total Water Column (m)", "Temperature (c)", "pH", "ODO mg/L", "Salinity (ppt)","Turbid+ NTU", "BGA-PC cells/mL"]].describe())
 
 st.subheader("Map")
 # st.map(partial_ds[['lat','lon']])
