@@ -38,7 +38,7 @@ partial_ds = selectDataframe(dataset, selected_parameters)  # calling function s
 min_turb = partial_ds[["Turbid+ NTU"]].min()
 partial_ds[["Turbid+ NTU"]]=partial_ds[["Turbid+ NTU"]]-min_turb
 
-st.title('FIU Biscayne Bay Task Force')
+st.title('Biscayne Bay Missions')
 
 st.header("Data Collection - September 5th 2020")
 
