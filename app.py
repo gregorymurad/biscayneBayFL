@@ -6,7 +6,7 @@ import pydeck as pdk
 from PIL import Image
 
 
-def mission(dataset):
+def mission(dataset,zoom_lat,zoom_long):
     parameters = [1,2,3,4,5,6,7]
     water_parameters = {1: "Total Water Column (m)",
                         2: "Temperature (c)",
@@ -39,9 +39,6 @@ def mission(dataset):
     min_turb = partial_ds[["Turbid+ NTU"]].min()
     partial_ds[["Turbid+ NTU"]]=partial_ds[["Turbid+ NTU"]]-min_turb
 
-    st.title('Biscayne Bay Missions')
-
-    st.header("Data Collection - September 5th 2020")
 
     st.subheader("Summary Table")
     options = st.multiselect(
@@ -65,8 +62,8 @@ def mission(dataset):
          map_style='mapbox://styles/mapbox/streets-v11',
          #map_style='mapbox://styles/mapbox/light-v9',
          initial_view_state=pdk.ViewState(
-             latitude=25.91275783,
-             longitude=-80.13782367,
+             latitude=zoom_lat,
+             longitude=zoom_long,
              zoom=16,
              pitch=50,
          ),
@@ -92,35 +89,55 @@ def mission(dataset):
      ))
 
 
-    st.subheader("Photos of the Mission")
-    image1 = Image.open('IMG_1885.jpg')
-    image2 = Image.open('IMG_1886.jpg')
-    image3 = Image.open('IMG_1887.jpg')
-    st.image(image1,use_column_width=True)
-    st.image(image2,use_column_width=True)
-    st.image(image3, caption='YSI Ecomapper executing mission in Biscayne Bay, FL, Sep 2020',use_column_width=True)
-
-    # st.text("Developed by Gregory Murad Reis\n"
-    #         "Mission designed by Adrian Perez\n"
-    #         "Miami, FL\n"
-    #         "2020")
-
-
 if __name__ == '__main__':
-    sep5 = "ManualLog_12_19_47_14.csv"
-    sep18 = "Logs/20200918_120605_PleaseWorkSRP_IVER2-218.csv"
-    sep25_1 = "Logs/20200925_103101_MMC_1_IVER2-218.csv"
-    # sep25_2 ="Logs/20200925_121758_OnTheFlySRP_IVER2-218.csv"
-    sep25_2 = "Logs/20200925_122158_OnTheFlySRP_IVER2-218.csv"
+    #Zoom info
+    bbc_lat = 25.91275783
+    bbc_long = -80.13782367
+    lil_river_lat = 25.845469
+    lil_river_long = -80.175492
+
+    #August 2020
+    aug20 = "Logs/BBC/ManualLog_11_05_09_92.csv"
+    sep5 = "Logs/BBC/ManualLog_12_19_47_14.csv"
+
+    #September 2020
+    sep18_1 = "Logs/BBC/20200918_115659_PleaseWork_IVER2-218.csv"
+    sep18_2 = "Logs/BBC/20200918_120605_PleaseWorkSRP_IVER2-218.csv"
+
+    #October 2020
+    oct3 = "Logs/LittleRiver/ManualLog_17_00_45_64.csv"
+    oct4_1 = "Logs/LittleRiver/20201004_171844_TestForLittleRiver_IVER2-218.csv"
+    oct4_2 = "Logs/LittleRiver/20201004_180324_LittleRiverOct4_IVER2-218.csv"
 
     option=st.sidebar.selectbox("Select the Date/Location",
-                         ("Sep 5, BBC","Sep 18, BBC","Sep 25 A, MMC", "Sep 25 B, MMC"))
+                         ("","Aug 20, BBC","Sep 5, BBC","Sep 18 A, BBC",
+                          "Sep 18 B, BBC","Oct 3, Little River",
+                          "Oct 4 Test, Little River", "Oct 4, Little River"))
 
-    if option == "Sep 5, BBC":
-        mission(sep5)
-    elif option == "Sep 18, BBC":
-        mission(sep18)
-    elif option == "Sep 25 A, MMC":
-        mission(sep25_1)
-    elif option == "Sep 25 B, MMC":
-        mission(sep25_2)
+    st.title("FIU - Marine Robotics Lab")
+    st.header("Professor Gregory Murad Reis")
+    st.subheader("Rescuing Biscayne Bay Project")
+
+    st.text("Please select a mission in the top left menu.")
+    # st.subheader("Photos of the Mission")
+    # image1 = Image.open('IMG_1885.jpg')
+    # image2 = Image.open('IMG_1886.jpg')
+    # image3 = Image.open('IMG_1887.jpg')
+    # st.image(image1, use_column_width=True)
+    # st.image(image2, use_column_width=True)
+    # st.image(image3, caption='YSI Ecomapper executing mission in Biscayne Bay, FL, Sep 2020', use_column_width=True)
+
+    if option == "Aug 20, BBC":
+        mission(aug20,bbc_lat,bbc_long)
+    elif option == "Sep 5, BBC":
+        mission(sep5,bbc_lat,bbc_long)
+    elif option == "Sep 18 A, BBC":
+        mission(sep18_1,bbc_lat,bbc_long)
+    elif option == "Sep 18 B, BBC":
+        mission(sep18_2,bbc_lat,bbc_long)
+    elif option == "Oct 3, Little River":
+        mission(oct3,lil_river_lat,lil_river_long)
+    elif option == "Oct 4 Test, Little River":
+        mission(oct4_1,lil_river_lat,lil_river_long)
+    elif option == "Oct 4, Little River":
+        mission(oct4_2,lil_river_lat,lil_river_long)
