@@ -117,7 +117,7 @@ if __name__ == '__main__':
     st.title("FIU - Marine Robotics Lab")
     st.header("Rescuing Biscayne Bay Project")
 
-    st.text("This project aims at developing algorithms to effectively and efficiently collect water data using "
+    st.write("This project aims at developing algorithms to effectively and efficiently collect water data using "
             "autonomous underwater and surface robots. Professor Gregory Murad Reis (gregoryreis.com) is leading a team of "
             "students and researchers to collect, analyze and develop visualization tools for the data collected in"
             "Biscayne Bay, FL. This effort is motivated by the environmental issues that have happening in the bay area."
