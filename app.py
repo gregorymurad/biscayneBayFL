@@ -115,10 +115,13 @@ if __name__ == '__main__':
                           "Oct 4 Test, Little River", "Oct 4, Little River"))
 
     st.title("FIU - Marine Robotics Lab")
-    st.header("Professor Gregory Murad Reis")
-    st.subheader("Rescuing Biscayne Bay Project")
+    st.header("Rescuing Biscayne Bay Project")
 
-    st.text("Please select a mission in the top left menu.")
+    st.text("This project aims at developing algorithms to effectively and efficiently collect water data using "
+            "autonomous underwater and surface robots. Professor Gregory Murad Reis (gregoryreis.com) is leading a team of "
+            "students and researchers to collect, analyze and develop visualization tools for the data collected in"
+            "Biscayne Bay, FL. This effort is motivated by the environmental issues that have happening in the bay area."
+            "\nPlease select a mission in the top left menu to visualize the dataset.")
     # st.subheader("Photos of the Mission")
     # image1 = Image.open('IMG_1885.jpg')
     # image2 = Image.open('IMG_1886.jpg')
