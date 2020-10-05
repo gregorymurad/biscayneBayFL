@@ -89,14 +89,6 @@ def mission(dataset,zoom_lat,zoom_long):
      ))
 
 
-
-
-    # st.text("Developed by Gregory Murad Reis\n"
-    #         "Mission designed by Adrian Perez\n"
-    #         "Miami, FL\n"
-    #         "2020")
-
-
 if __name__ == '__main__':
     #Zoom info
     bbc_lat = 25.91275783
@@ -126,6 +118,7 @@ if __name__ == '__main__':
     st.header("Professor Gregory Murad Reis")
     st.subheader("Rescuing Biscayne Bay Project")
 
+    st.text("Please select a mission in the top left menu.")
     # st.subheader("Photos of the Mission")
     # image1 = Image.open('IMG_1885.jpg')
     # image2 = Image.open('IMG_1886.jpg')
