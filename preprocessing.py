@@ -1,4 +1,3 @@
-import os
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -20,9 +19,8 @@ def mission(dataset):
                            parameters]
 
     def selectDataframe(dataset: str, selected_parameters: List[str]):
-        entire_ds = pd.read_csv(dataset,delimiter=';')  # read the entire dataset as a dataframe
+        entire_ds = pd.read_csv(dataset)  # read the entire dataset as a dataframe
         # print(entire_ds.columns) #to print the head of the dataframe
-        mission_date=entire_ds.at[2,'Date']
 
         selected_parameters.insert(0, "Latitude")
         selected_parameters.insert(1, "Longitude")
@@ -33,17 +31,17 @@ def mission(dataset):
             print("The dataframe was successfully created!")
             print(partial_ds.columns)  # to print the head of the dataframe
             partial_ds = partial_ds.rename(columns={"Latitude": "lat", "Longitude": "lon"})
-            return partial_ds,mission_date
+            return partial_ds
         except ValueError:
             print("Oops!  Some selected water parameters do not exist in this dataset. Try again...")
 
-    partial_ds = selectDataframe(dataset, selected_parameters)[0]  # calling function selectDataframe
+    partial_ds = selectDataframe(dataset, selected_parameters)  # calling function selectDataframe
     min_turb = partial_ds[["Turbid+ NTU"]].min()
     partial_ds[["Turbid+ NTU"]] = partial_ds[["Turbid+ NTU"]] - min_turb
 
     st.title('Biscayne Bay Missions')
 
-    st.header("Data Collection - "+selectDataframe(dataset, selected_parameters)[1])
+    st.header("Data Collection - September 5th 2020")
 
     st.subheader("Summary Table")
     options = st.multiselect(
@@ -94,28 +92,35 @@ def mission(dataset):
         ],
     ))
 
+    st.subheader("Photos of the Mission")
+    image1 = Image.open('IMG_1885.jpg')
+    image2 = Image.open('IMG_1886.jpg')
+    image3 = Image.open('IMG_1887.jpg')
+    st.image(image1, use_column_width=True)
+    st.image(image2, use_column_width=True)
+    st.image(image3, caption='YSI Ecomapper executing mission in Biscayne Bay, FL, Sep 2020', use_column_width=True)
+
+    # st.text("Developed by Gregory Murad Reis\n"
+    #         "Mission designed by Adrian Perez\n"
+    #         "Miami, FL\n"
+    #         "2020")
+
+
 if __name__ == '__main__':
-    path = "/Users/gregorymuradreis/Desktop/Log_Files_BBC_Jan_30_2021"
-    lst=[]
-    lst_path=[]
-    for file in os.listdir(path):
-        filename = os.fsdecode(file)
-        if filename.endswith(".csv") or filename.endswith(".log"):
-            print(os.path.join(path, filename))
-            lst.append(filename)
-            lst_path.append(os.path.join(path, filename))
-        else:
-            continue
+    sep5 = "ManualLog_12_19_47_14.csv"
+    sep18 = "Logs/20200918_120605_PleaseWorkSRP_IVER2-218.csv"
+    sep25_1 = "Logs/20200925_103101_MMC_1_IVER2-218.csv"
+    # sep25_2 ="Logs/20200925_121758_OnTheFlySRP_IVER2-218.csv"
+    sep25_2 = "Logs/20200925_122158_OnTheFlySRP_IVER2-218.csv"
 
     option = st.sidebar.selectbox("Select the Date/Location",
-                                  tuple(lst))
-    import csv
+                                  ("Sep 5, BBC", "Sep 18, BBC", "Sep 25 A, MMC", "Sep 25 B, MMC"))
 
-    temp_log = 'Logs2021/temp_log.csv'
-    with open("/Users/gregorymuradreis/Desktop/Log_Files_BBC_Jan_30_2021/"+option, 'r') as logfile, open(temp_log, 'w') as csvfile:
-        reader = csv.reader(logfile, delimiter=';')
-        writer = csv.writer(csvfile, delimiter=';', )
-        writer.writerows(reader)
-
-
-    mission(temp_log)
+    if option == "Sep 5, BBC":
+        mission(sep5)
+    elif option == "Sep 18, BBC":
+        mission(sep18)
+    elif option == "Sep 25 A, MMC":
+        mission(sep25_1)
+    elif option == "Sep 25 B, MMC":
+        mission(sep25_2)
